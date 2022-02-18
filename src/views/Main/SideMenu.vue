@@ -11,11 +11,9 @@
       <template v-for="(menu, m) in parseMenu(smenu)">
         <el-sub-menu v-if="menu.children" :key="menu" :index="menu.meta.title">
           <template #title>
-            <i
-              v-if="menu.meta"
-              class="iconfont"
-              v-html="menu.meta.icon || '&#xe65d;'"
-            />
+            <el-icon>
+              <component :is="menu.meta.icon" />
+            </el-icon>
             <span>{{ menu.meta ? menu.meta.title : "" }}</span>
           </template>
           <!-- <div v-for="item in parseMenu"></div> -->
@@ -28,12 +26,10 @@
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item v-else :key="m" :index="menu.name">
-          <i
-            v-if="menu.meta"
-            class="iconfont"
-            v-html="menu.meta.icon || '&#xe65d;'"
-          />
           <template #title>
+            <el-icon>
+              <component :is="menu.meta.icon" />
+            </el-icon>
             <span>{{ menu.meta ? menu.meta.title : "" }}</span>
           </template>
         </el-menu-item>
@@ -58,12 +54,10 @@ export default {
       return parseIndex(route.name);
     });
     const authority = computed(() => {
-      console.log(store.state.authority);
       return store.state.authority;
     });
     const smenu = ref(routes.children);
     function parseMenu(routeItem) {
-      console.log(routeItem.filter);
       const parsedMenu = routeItem.filter((x) => {
         const name = x.name || x.meta.shadowName;
         const nameArr = name.split(".");

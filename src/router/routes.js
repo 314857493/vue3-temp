@@ -11,7 +11,7 @@ export default {
       name: "main.device",
       meta: {
         title: "设备管理",
-        icon: "&#xe629;",
+        icon: "menu",
         shadowName: "main.device",
       },
       component: ViewBox,

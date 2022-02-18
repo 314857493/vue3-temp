@@ -124,8 +124,8 @@
 <script>
 import { onMounted, onUnmounted, ref } from "vue";
 import CreateDevice from "./CreateDevice.vue";
-import _axios from "@/plugins/axios";
-import { ElMessage } from "element-plus";
+// import _axios from "@/plugins/axios";
+// import { ElMessage } from "element-plus";
 export default {
   name: "Device",
   components: { CreateDevice },
@@ -148,14 +148,15 @@ export default {
       { label: "连接中", value: 4 },
     ]);
     function getStatusList() {
-      _axios.get("/api/qc-cms/device/connectStatus").then((res) => {
-        if (res.code == 1) {
-          const arr = Object.entries(res.data).map((item) => {
-            return { label: item[1], value: item[0] };
-          });
-          statusList.value = [{ label: "全部", value: "" }, ...arr];
-        }
-      });
+      // _axios.get("/api/qc-cms/device/connectStatus").then((res) => {
+      //   if (res.code == 1) {
+      //     const arr = Object.entries(res.data).map((item) => {
+      //       return { label: item[1], value: item[0] };
+      //     });
+      //     statusList.value = [{ label: "全部", value: "" }, ...arr];
+      //   }
+      // });
+      statusList.value = [];
     }
     const tableData = ref([]);
     const pageNum = ref(1);
@@ -172,29 +173,31 @@ export default {
     function getList(index, stopRefresh) {
       if (stopRefresh) clearTimeout(t.value);
       pageNum.value = index || 1;
-      const params = {
-        pageNum: pageNum.value,
-        pageSize: pageSize.value,
-        name: searchForm.value.deviceName || "",
-        status: searchForm.value.status || "",
-      };
+      // const params = {
+      //   pageNum: pageNum.value,
+      //   pageSize: pageSize.value,
+      //   name: searchForm.value.deviceName || "",
+      //   status: searchForm.value.status || "",
+      // };
 
       loading.value = true;
-      _axios.post("/api/qc-cms/device/page", params).then((res) => {
-        if (res.code == 1) {
-          tableData.value = res.data.list;
-          loading.value = false;
-          pageNum.value = res.data.pageNum;
-          total.value = res.data.total;
-          if (
-            tableData.value.some((x) => [4, 5].includes(x.deviceConnectStatus))
-          ) {
-            t.value = setTimeout(() => {
-              getList(pageNum.value, true);
-            }, 20000);
-          }
-        }
-      });
+      tableData.value = [];
+      loading.value = false;
+      // _axios.post("/api/qc-cms/device/page", params).then((res) => {
+      //   if (res.code == 1) {
+      //     tableData.value = res.data.list;
+      //     loading.value = false;
+      //     pageNum.value = res.data.pageNum;
+      //     total.value = res.data.total;
+      //     if (
+      //       tableData.value.some((x) => [4, 5].includes(x.deviceConnectStatus))
+      //     ) {
+      //       t.value = setTimeout(() => {
+      //         getList(pageNum.value, true);
+      //       }, 20000);
+      //     }
+      //   }
+      // });
     }
     onUnmounted(() => {
       if (t.value !== null) {
@@ -202,25 +205,26 @@ export default {
         t.value = null;
       }
     });
+    // eslint-disable-next-line no-unused-vars
     function editStatus({ row }) {
       return function () {
-        return new Promise((resolve, reject) => {
-          _axios
-            .get(`/api/qc-cms/device/control?id=${row.id}&inUse=${!row.inUse}`)
-            .then((res) => {
-              if (res.code == 1) {
-                getList();
-                resolve(true);
-              } else {
-                getList();
-                reject(false);
-              }
-            })
-            .catch(() => {
-              getList();
-              reject(false);
-            });
-        });
+        // return new Promise((resolve, reject) => {
+        //   _axios
+        //     .get(`/api/qc-cms/device/control?id=${row.id}&inUse=${!row.inUse}`)
+        //     .then((res) => {
+        //       if (res.code == 1) {
+        //         getList();
+        //         resolve(true);
+        //       } else {
+        //         getList();
+        //         reject(false);
+        //       }
+        //     })
+        //     .catch(() => {
+        //       getList();
+        //       reject(false);
+        //     });
+        // });
       };
     }
 
@@ -233,13 +237,14 @@ export default {
       rowData.value = row;
       createDeviceRef.value.visible = true;
     }
+    // eslint-disable-next-line no-unused-vars
     function deleteItem({ row }) {
-      _axios.delete(`/api/qc-cms/device?id=${row.id}`).then((res) => {
-        if (res.code === 1) {
-          ElMessage.success("删除成功");
-          getList();
-        }
-      });
+      // _axios.delete(`/api/qc-cms/device?id=${row.id}`).then((res) => {
+      //   if (res.code === 1) {
+      //     ElMessage.success("删除成功");
+      //     getList();
+      //   }
+      // });
     }
     onMounted(() => {
       getList();

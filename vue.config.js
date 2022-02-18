@@ -21,14 +21,14 @@ module.exports = {
     port: 8020,
     proxy: {
       "/api": {
-        target: "http://ai-qc.jdcloud.com",
+        target: "http://t.jdcloud.com",
         changeOrigin: true,
       },
     },
   },
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
-      args[0].title = "宇海质检";
+      args[0].title = "Vue3模板";
       return args;
     });
   },

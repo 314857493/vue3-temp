@@ -17,5 +17,4 @@ module.exports = {
     "no-param-reassign": ["error", { props: false }],
     //   "vue/script-setup-uses-vars": 0,
   },
-  eslintIgnore: ["node_modules", "dist"],
 };

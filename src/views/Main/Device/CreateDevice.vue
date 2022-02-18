@@ -151,17 +151,17 @@ export default {
     }
     const deviceTypeList = ref([]);
     function getDeviceTypeList() {
-      _axios.get("/api/qc-cms/device/type").then((res) => {
-        if (res.code == 1) {
-          const arr = Object.entries(res.data).map((item) => {
-            return {
-              label: item[1],
-              value: +item[0],
-            };
-          });
-          deviceTypeList.value = arr;
-        }
-      });
+      // _axios.get("/api/qc-cms/device/type").then((res) => {
+      //   if (res.code == 1) {
+      //     const arr = Object.entries(res.data).map((item) => {
+      //       return {
+      //         label: item[1],
+      //         value: +item[0],
+      //       };
+      //     });
+      //     deviceTypeList.value = arr;
+      //   }
+      // });
     }
     function handleSave() {
       createFormRef.value.validate((valid) => {

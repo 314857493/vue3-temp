@@ -1,11 +1,4 @@
 <template>
-  <!-- <div class="Main">
-    <SideMenu />
-    <div class="Main-Layout">
-      <Header :isNeedLogin="false" /><Breadcrumb />
-      <router-view class="Main-view" />
-    </div>
-  </div> -->
   <div class="Main">
     <Header :isNeedLogin="true" />
     <div class="Main-Layout">
